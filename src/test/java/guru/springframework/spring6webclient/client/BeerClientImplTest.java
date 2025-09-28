@@ -128,4 +128,21 @@ class BeerClientImplTest {
 
         await().untilTrue(atomicBoolean);
     }
+
+    @Test
+    void testPatchBeer() {
+        AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+        final String beerName = "New Name";
+
+        client.getBeerDTOs()
+                .next() // Mono that emits the 1. item emitted by the Flux
+                .map(dto -> BeerDTO.builder().beerName(beerName).id(dto.getId()).build())
+                .flatMap(dto -> client.patchBeer(dto))
+                .subscribe(dto -> {
+                    System.out.println(dto);
+                    atomicBoolean.set(true);
+                });
+
+        await().untilTrue(atomicBoolean);
+    }
 }
