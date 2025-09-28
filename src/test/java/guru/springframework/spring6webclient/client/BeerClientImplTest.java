@@ -145,4 +145,17 @@ class BeerClientImplTest {
 
         await().untilTrue(atomicBoolean);
     }
+
+    @Test
+    void testDeleteBeer() {
+        AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+
+        client.getBeerDTOs()
+                .next()
+                .flatMap(dto -> client.deleteBeer(dto.getId()))
+                .doOnSuccess(signal -> atomicBoolean.set(true))
+                .subscribe();
+
+        await().untilTrue(atomicBoolean);
+    }
 }
