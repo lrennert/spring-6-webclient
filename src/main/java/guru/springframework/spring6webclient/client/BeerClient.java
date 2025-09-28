@@ -3,6 +3,7 @@ package guru.springframework.spring6webclient.client;
 import com.fasterxml.jackson.databind.JsonNode;
 import guru.springframework.spring6webclient.model.BeerDTO;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
@@ -15,4 +16,6 @@ public interface BeerClient {
     Flux<JsonNode> getBeerJsonNodes();
 
     Flux<BeerDTO> getBeerDTOs();
+
+    Mono<BeerDTO> getBeerById(String id);
 }
