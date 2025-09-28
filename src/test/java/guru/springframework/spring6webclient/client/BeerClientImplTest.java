@@ -37,4 +37,16 @@ class BeerClientImplTest {
 
         await().untilTrue(atomicBoolean);
     }
+
+    @Test
+    void testGetBeerJsonNodes() {
+        AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+
+        client.getBeerJsonNodes().subscribe(jsonNode -> {
+            System.out.println(jsonNode.toPrettyString());
+            atomicBoolean.set(true);
+        });
+
+        await().untilTrue(atomicBoolean);
+    }
 }
